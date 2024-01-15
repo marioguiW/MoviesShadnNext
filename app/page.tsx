@@ -1,5 +1,5 @@
-import { CarouselPlugin } from "@/components/Carrossel"
-import OriginaisNetflix from "@/components/OriginaisNetflix"
+import { CarrosselBanner } from "@/components/CarrosselBanner"
+import CarrosselTopicos from "@/components/CarrosselTopicos"
 
 async function getApi(){
 
@@ -11,9 +11,11 @@ async function getApi(){
   const responseOriginais = await fetch(endpointOriginais)
   const Originais = responseOriginais.json()
 
-  const endpointPopulares = 'https://api.themoviedb.org/3//move/top_rated?api_key=846725a8fe0da4e08b81a3637c2b71da&language=pt-BR'
+  const endpointPopulares = 'https://api.themoviedb.org/3/movie/popular?api_key=846725a8fe0da4e08b81a3637c2b71da'
   const responsePopulares = await fetch(endpointPopulares)
   const Populares = responsePopulares.json()
+
+  console.log('populares',Populares)
 
   return {
     emAlta: await EmAlta,
@@ -51,18 +53,17 @@ export default async function Home() {
   const responseApi = await getApi()
 
   const filmes = responseApi
-  console.log(filmes)
 
-
-
-  console.log("filme", filmes.emAlta)
-
+  console.log('teste',filmes.populares.results)
 
   return (
     <main className="flex flex-col items-center content-center w-full">
       <div className="">
-        <CarouselPlugin filmes={filmes.emAlta.results}/>
-        <OriginaisNetflix filmes={filmes.originais.results}/>
+        <CarrosselBanner filmes={filmes.emAlta.results}/>
+        <div id="topicos">
+          <CarrosselTopicos title='Originais da Netflix'  filmes={filmes.originais.results}/>
+          <CarrosselTopicos title="Populares" filmes={filmes.populares.results}/>
+        </div>
       </div>
     </main>
   )

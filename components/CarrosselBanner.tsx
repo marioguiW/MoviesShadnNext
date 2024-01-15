@@ -10,13 +10,13 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel"
 import { movie } from "@/type/movie"
-import Card from "./Card"
+import CardBanner from "./CardBanner"
 
 type CarouselType ={
     filmes: movie[]
 }
 
-export function CarouselPlugin({filmes} : CarouselType) {
+export function CarrosselBanner({filmes} : CarouselType) {
   const plugin = React.useRef(
     Autoplay({ delay: 2000, stopOnInteraction: true })
   )
@@ -31,7 +31,7 @@ export function CarouselPlugin({filmes} : CarouselType) {
       <CarouselContent className="{}"> 
         {filmes.map((filme, index)=>(
             <CarouselItem key={index}>
-                <Card url={filme.backdrop_path}/>
+                <CardBanner url={filme.backdrop_path}/>
             </CarouselItem>
         ))}
       </CarouselContent>
